@@ -1,0 +1,20 @@
+# Init script for VVV Auto Site Setup
+echo "Commencing {{ projectname }} Site Setup"
+
+# Nginx
+if [[ ! -d /srv/log/{{ projectname }}.dev ]]; then
+	mkdir /srv/log/{{ projectname }}.dev
+fi
+	touch /srv/log/{{ projectname }}.dev/error.log
+	touch /srv/log/{{ projectname }}.dev/access.log
+
+if [[ ! -f /srv/log/{{ projectname }}.dev/logs.cfg ]]; then
+	cp logs.cfg /srv/log/{{ projectname }}.dev/
+fi
+
+
+echo "Composer install"
+composer install
+
+# The Vagrant site setup script will restart Nginx for us
+echo "{{ projectname }} is now set up!";

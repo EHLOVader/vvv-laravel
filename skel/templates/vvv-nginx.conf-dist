@@ -1,0 +1,57 @@
+server {
+    listen          80;
+    listen          443 ssl;
+
+
+    # Add any of your domains here separated by a spaces
+    server_name     {{ projectname }}.dev www.{{ projectname }}.dev;
+
+    # The {vvv_path_to_folder} token gets replaced
+    # with the folder containing this, e.g. if this
+    # folder is /srv/www/foo/ and you have a root
+    # value of `{vvv_path_to_folder}/public` this
+    # will be auto-magically transformed to
+    # `/srv/www/foo/public`.
+    root            {vvv_path_to_folder}/public;
+
+    location / {
+        index index.php index.html index.htm;
+        try_files $uri $uri/ /index.php$is_args$args;
+    }
+
+    location ~ \.php$ {
+		# Try the files specified in order. In our case, try the requested URI and if
+		# that fails, try (successfully) to pass a 404 error.
+        try_files $uri /index.php =404;
+
+		# Include the fastcgi_params defaults provided by nginx
+		include        /etc/nginx/fastcgi_params;
+
+		# The amount of time for upstream to wait for a fastcgi process to send data.
+		# We keep this *extremely* high so that one can be lazy when remote debugging.
+		fastcgi_read_timeout 3600s;
+
+		# Buffer size for reading the header of the backend FastCGI process.
+		# This defaults to the value of a single fastcgi_buffers, so does not
+		# need to be specified in our case, but it's good to be explicit.
+		fastcgi_buffer_size 128k;
+
+		# The number and size of the buffers into which the reply from the FastCGI
+		# process in the backend is read.
+		#
+		# 4 buffers at 128k means that any reply by FastCGI greater than 512k goes
+		# to disk and replies under 512k are handled directly in memory.
+		fastcgi_buffers 4 128k;
+
+		# SCRIPT_FILENAME is a required parameter for things to work properly,
+		# but was missing in the default fastcgi_params on upgrade to nginx 1.4.
+		# We define it here to be sure that it exists.
+		fastcgi_param   SCRIPT_FILENAME         $document_root$fastcgi_script_name;
+
+		# Use the upstream for php5-fpm that we defined in nginx.conf
+		fastcgi_pass   php;
+
+		# And get to serving the file!
+		fastcgi_index  index.php;
+	}
+}
