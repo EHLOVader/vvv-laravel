@@ -42,7 +42,7 @@
             "php -r \"copy('.env.example', '.env');\""
         ],
         "post-create-project-cmd": [
-            "php skel/post_create_project.php",
+            "skel/post_create_project.php",
             "php artisan key:generate"
         ]
     },
