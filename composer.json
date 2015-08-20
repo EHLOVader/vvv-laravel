@@ -1,6 +1,6 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "EHLOVader/vvv-laravel",
+    "description": "The Laravel Framework for VVV.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "type": "project",
