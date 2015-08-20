@@ -1,3 +1,4 @@
+#!/usr/bin/env php
 <?php
 
 // We get the project name from the name of the path that Composer created for us.
@@ -19,6 +20,9 @@ $replaces = [
 foreach (glob("skel/templates/*-dist", GLOB_BRACE) as $distfile) {
 
     $target = substr($distfile, 15, -5);
+
+    $target = realpath(".") . '/' . $target;
+    $distfile = realpath(".") . '/' . $distfile;
 
     // First we copy the dist file to its new location,
     // overwriting files we might already have there.
