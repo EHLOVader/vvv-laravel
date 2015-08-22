@@ -8,7 +8,8 @@ echo "projectname $projectname taken from directory name\n";
 // We could do more replaces to our templates here,
 // for the example we only do {{ projectname }}
 $replaces = [
-    "{{ projectname }}" => $projectname
+    "{{ projectname }}" => $projectname,
+    "{{ projectid }}" => $projectname . 'dev'
 ];
 
 
