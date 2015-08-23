@@ -18,7 +18,7 @@ $replaces = [
 // requirements you might want to do a more complex things here (like if you want
 // to replace files somewhere
 // else than in the projects root directory
-foreach (glob("skel/templates/*-dist", GLOB_BRACE) as $distfile) {
+foreach (glob("skel/templates/{.*|*}-dist", GLOB_BRACE) as $distfile) {
 
     $target = substr($distfile, 15, -5);
 
