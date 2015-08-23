@@ -22,6 +22,7 @@ if [[ ! -d /srv/log/{{ projectname }}.dev ]]; then
 fi
 	touch /srv/log/{{ projectname }}.dev/error.log
 	touch /srv/log/{{ projectname }}.dev/access.log
+	touch /srv/www/{{ projectname }}/storage/logs/laravel.log
 
 if [[ ! -f /srv/log/{{ projectname }}.dev/logs.cfg ]]; then
 	cp logs.cfg /srv/log/{{ projectname }}.dev/

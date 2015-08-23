@@ -1,6 +1,7 @@
 "logs-error": {
 	"display" : "{{ projectname }} | Error",
 	"path"    : "\/srv\/log\/{{ projectid }}\/error.log",
+	"tags"    : [ "Nginx", "Error", "{{ projectname }}"],
 	"refresh" : 5,
 	"max"     : 10,
 	"notify"  : true,
@@ -35,6 +36,7 @@
 "logs-access": {
 	"display" : "{{ projectname }} | Access",
 	"path"    : "\/srv\/log\/{{ projectid }}\/access.log",
+	"tags"    : [ "Nginx", "Access", "{{ projectname }}"],
 	"refresh" : 0,
 	"max"     : 10,
 	"notify"  : false,
@@ -71,6 +73,7 @@
 "laravel": {
     "display" : "{{ projectname }} | Laravel",
     "path"    : "\/srv\/www\/{{ projectname }}\/storage\/logs\/laravel*.log",
+	"tags"    : [ "Laravel", "Error", "{{ projectname }}"],
     "count"   : 2,
     "refresh" : 1,
     "max"     : 15,
